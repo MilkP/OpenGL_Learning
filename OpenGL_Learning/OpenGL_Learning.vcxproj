@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Source\glad.c" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -73,8 +74,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>D:\Projects\VS_Project\OpenGL_Learning\Lib\Include;D:\Projects\OpenGL_Library\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Projects\VS_Project\OpenGL_Learning\Lib\Libs;D:\Projects\OpenGL_Library\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Projects\VS_Project\OpenGL_Learning\Lib\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Projects\VS_Project\OpenGL_Learning\Lib\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
