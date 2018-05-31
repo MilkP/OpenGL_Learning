@@ -13,9 +13,10 @@ const char *vertexShaderSource = "#version 330 core\n"
 	"}\0";
 const char *fragmentShaderSource = "#version 330 core\n"
 	"out vec4 FragColor;\n"
+	"uniform vec4 ourColor;\n" //Setup color variable
 	"void main()\n"
 	"{\n"
-	"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+	"   FragColor = ourColor;\n"
 	"}\n\0";
 
 int main() {
@@ -132,6 +133,7 @@ int main() {
 	glBindVertexArray(0);
 
 	//Game Loop
+	//============================================================================
 	while (!glfwWindowShouldClose(window)) {
 		//get input
 		processInput(window);
@@ -142,6 +144,15 @@ int main() {
 
 		//draw
 		glUseProgram(shaderProgram);
+		//set time
+		float timeValue = glfwGetTime();
+		//set color
+		float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+		//transfer color
+		int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+		glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+
+		//final draw
 		glBindVertexArray(VAO); //Bind VAO
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
