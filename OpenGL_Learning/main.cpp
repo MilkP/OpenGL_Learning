@@ -1,26 +1,13 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include "Shader.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
-const char *vertexShaderSource = "#version 330 core\n"
-    "layout (location = 0) in vec3 aPos;\n"
-	"layout (location = 1) in vec3 aColor;\n"
-	"out vec3 ourColor;\n"
-    "void main()\n"
-    "{\n"
-    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-	"   ourColor = aColor;"
-	"}\0";
-const char *fragmentShaderSource = "#version 330 core\n"
-	"out vec4 FragColor;\n"
-	"in vec3 ourColor;\n" //Setup color variable
-	"void main()\n"
-	"{\n"
-	"   FragColor = vec4(ourColor, 1.0);\n"
-	"}\n\0";
+const unsigned int WIN_WIDTH = 800;
+const unsigned int WIN_HEIGHT = 600;
 
 int main() {
 	//Base Setting========================================================
@@ -31,7 +18,7 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	//Create Window
-	GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(WIN_WIDTH, WIN_HEIGHT, "LearnOpenGL", NULL, NULL);
 	if (window == NULL) {
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
@@ -47,58 +34,8 @@ int main() {
 		return -1;
 	}
 
-	//Shader Compiler
-	//===================================================================
-	//Create Vshader object
-	unsigned int vertexShader;
-	vertexShader = glad_glCreateShader(GL_VERTEX_SHADER);
-
-	//Attach shader program to shader object and compile
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-	glCompileShader(vertexShader);
-
-	//Check if Vshader compiling success
-	int success;
-	char infoLog[512];
-	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-	
-	if (!success) {
-		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-	}
-
-	//Create FShader object
-	unsigned int fragmentShader;
-	fragmentShader = glad_glCreateShader(GL_FRAGMENT_SHADER);
-
-	//Attach shader program to shader object and compile
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-	glCompileShader(fragmentShader);
-
-	//Check if Fshader compiling success
-	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-	if (!success) {
-		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
-	}
-
-	//Link shader program
-	unsigned int shaderProgram;
-	shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, vertexShader);
-	glAttachShader(shaderProgram, fragmentShader);
-	glLinkProgram(shaderProgram);
-
-	//Check if link success
-	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-	if (!success) {
-		glGetShaderInfoLog(shaderProgram, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
-	}
-
-	//Clean VShader&FShader
-	glDeleteShader(vertexShader);
-	glDeleteShader(fragmentShader);
+	//Setup Shader
+	Shader ourShader("../Shader/3.shader.vs", "3.shader.fs");
 
 	//Vertices setup
 	//=======================================================================================
@@ -150,14 +87,7 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//draw
-		glUseProgram(shaderProgram);
-		//set time
-		float timeValue = glfwGetTime();
-		//set color
-		float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
-		//transfer color
-		int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
-		glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+		ourShader.use();
 
 		//final draw
 		glBindVertexArray(VAO); //Bind VAO
