@@ -26,6 +26,15 @@
   <ItemGroup>
     <None Include="Shader\3.shader.fs" />
     <None Include="Shader\3.shader.vs" />
+    <None Include="Shader\4.shader.fs" />
+    <None Include="Shader\4.shader.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Texture.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Texture\4.texture.jpg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
