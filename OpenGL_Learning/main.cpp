@@ -35,7 +35,7 @@ int main() {
 	}
 
 	//Setup Shader
-	Shader ourShader("../Shader/3.shader.vs", "3.shader.fs");
+	Shader ourShader("Shader/3.shader.vs", "Shader/3.shader.fs");
 
 	//Vertices setup
 	//=======================================================================================
