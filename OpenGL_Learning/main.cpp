@@ -11,7 +11,6 @@ const unsigned int WIN_WIDTH = 800;
 const unsigned int WIN_HEIGHT = 600;
 
 const char* texture1Path = "Texture/4.texture.jpg";
-unsigned int texture1;
 
 int main() {
 	//Base Setting========================================================
@@ -38,14 +37,11 @@ int main() {
 		return -1;
 	}
 
-	//setup texture
-	Texture myTexture1(texture1, texture1Path);
-
 	//Setup Shader
 	Shader ourShader("Shader/4.shader.vs", "Shader/4.shader.fs");
 
-	ourShader.use();
-	glUniform1i(glGetUniformLocation(ourShader.ID, "texture1"), 0);
+	//setup texture
+	Texture* ourTexture = new Texture(GL_TEXTURE_2D, texture1Path);
 
 	//Vertices setup
 	//=======================================================================================
@@ -87,8 +83,8 @@ int main() {
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	glEnableVertexAttribArray(2);
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
+	//glBindVertexArray(0);
 
 	//Game Loop
 	//============================================================================
@@ -101,8 +97,7 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//bind texture
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture1);
+		ourTexture->TextureBind(GL_TEXTURE0);
 
 		//draw
 		ourShader.use();
