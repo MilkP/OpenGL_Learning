@@ -35,6 +35,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Texture\4.texture.jpg" />
+    <Image Include="Texture\4.texture0.jpg" />
+    <Image Include="Texture\4.texture1.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

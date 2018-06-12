@@ -1,5 +1,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 #include <iostream>
 #include "Shader.h"
 #include "Texture.h"
@@ -10,7 +11,14 @@ void processInput(GLFWwindow *window);
 const unsigned int WIN_WIDTH = 800;
 const unsigned int WIN_HEIGHT = 600;
 
-const char* texture1Path = "Texture/4.texture.jpg";
+unsigned int texture0;
+unsigned int texture1;
+
+Texture* ourTexture0;
+Texture* ourTexture1;
+
+const char* texture0Path = "Texture/4.texture0.jpg";
+const char* texture1Path = "Texture/4.texture1.jpg";
 
 int main() {
 	//Base Setting========================================================
@@ -39,9 +47,15 @@ int main() {
 
 	//Setup Shader
 	Shader ourShader("Shader/4.shader.vs", "Shader/4.shader.fs");
-
+	ourShader.use();
 	//setup texture
-	Texture* ourTexture = new Texture(GL_TEXTURE_2D, texture1Path);
+	ourTexture0 = new Texture(GL_TEXTURE_2D, texture0Path);
+	texture0 = glGetUniformLocation((ourShader.ID), "texture0");
+	glUniform1i(texture0, 0);
+
+	ourTexture1 = new Texture(GL_TEXTURE_2D, texture1Path);
+	texture1 = glGetUniformLocation((ourShader.ID), "texture1");
+	glUniform1i(texture1, 1);
 
 	//Vertices setup
 	//=======================================================================================
@@ -97,10 +111,11 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//bind texture
-		ourTexture->TextureBind(GL_TEXTURE0);
+		ourTexture0->TextureBind(GL_TEXTURE0);
+		ourTexture1->TextureBind(GL_TEXTURE1);
 
 		//draw
-		ourShader.use();
+		//ourShader.use();
 
 		//final draw
 		glBindVertexArray(VAO); //Bind VAO
