@@ -47,9 +47,18 @@ int main() {
 		return -1;
 	}
 
+
 	//Setup Shader
 	Shader ourShader("Shader/4.shader.vs", "Shader/4.shader.fs");
 	ourShader.use();
+
+	//Transformation Matrix
+	glm::mat4 trans;
+	trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0));
+	trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
+	unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
+	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+
 	//setup texture
 	ourTexture0 = new Texture(GL_TEXTURE_2D, texture0Path);
 	texture0 = glGetUniformLocation((ourShader.ID), "texture0");
