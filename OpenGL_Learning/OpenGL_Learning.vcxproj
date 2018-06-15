@@ -28,6 +28,8 @@
     <None Include="Shader\3.shader.vs" />
     <None Include="Shader\4.shader.fs" />
     <None Include="Shader\4.shader.vs" />
+    <None Include="Shader\shader.fs" />
+    <None Include="Shader\shader.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stb_image.h" />
@@ -37,6 +39,8 @@
     <Image Include="Texture\4.texture.jpg" />
     <Image Include="Texture\4.texture0.jpg" />
     <Image Include="Texture\4.texture1.png" />
+    <Image Include="Texture\texture0.jpg" />
+    <Image Include="Texture\texture1.jpg" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
