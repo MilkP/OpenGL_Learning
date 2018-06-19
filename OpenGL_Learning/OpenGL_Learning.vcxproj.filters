@@ -32,22 +32,22 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shader\3.shader.fs">
-      <Filter>Resource Files\Shader</Filter>
-    </None>
-    <None Include="Shader\3.shader.vs">
-      <Filter>Resource Files\Shader</Filter>
-    </None>
-    <None Include="Shader\4.shader.fs">
-      <Filter>Resource Files\Shader</Filter>
-    </None>
-    <None Include="Shader\4.shader.vs">
-      <Filter>Resource Files\Shader</Filter>
-    </None>
     <None Include="Shader\shader.fs">
       <Filter>Resource Files\Shader</Filter>
     </None>
     <None Include="Shader\shader.vs">
+      <Filter>Resource Files\Shader</Filter>
+    </None>
+    <None Include="Shader\colors.fs">
+      <Filter>Resource Files\Shader</Filter>
+    </None>
+    <None Include="Shader\colors.vs">
+      <Filter>Resource Files\Shader</Filter>
+    </None>
+    <None Include="Shader\lamp.fs">
+      <Filter>Resource Files\Shader</Filter>
+    </None>
+    <None Include="Shader\lamp.vs">
       <Filter>Resource Files\Shader</Filter>
     </None>
   </ItemGroup>
@@ -63,15 +63,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Texture\4.texture.jpg">
-      <Filter>Resource Files\Texture</Filter>
-    </Image>
-    <Image Include="Texture\4.texture0.jpg">
-      <Filter>Resource Files\Texture</Filter>
-    </Image>
-    <Image Include="Texture\4.texture1.png">
-      <Filter>Resource Files\Texture</Filter>
-    </Image>
     <Image Include="Texture\texture0.jpg">
       <Filter>Resource Files\Texture</Filter>
     </Image>

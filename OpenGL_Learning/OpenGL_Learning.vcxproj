@@ -24,10 +24,10 @@
     <ClCompile Include="Source\glad.c" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shader\3.shader.fs" />
-    <None Include="Shader\3.shader.vs" />
-    <None Include="Shader\4.shader.fs" />
-    <None Include="Shader\4.shader.vs" />
+    <None Include="Shader\colors.fs" />
+    <None Include="Shader\colors.vs" />
+    <None Include="Shader\lamp.fs" />
+    <None Include="Shader\lamp.vs" />
     <None Include="Shader\shader.fs" />
     <None Include="Shader\shader.vs" />
   </ItemGroup>
@@ -37,9 +37,6 @@
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Texture\4.texture.jpg" />
-    <Image Include="Texture\4.texture0.jpg" />
-    <Image Include="Texture\4.texture1.png" />
     <Image Include="Texture\texture0.jpg" />
     <Image Include="Texture\texture1.jpg" />
   </ItemGroup>
