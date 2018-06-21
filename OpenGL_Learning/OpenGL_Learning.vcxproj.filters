@@ -69,5 +69,11 @@
     <Image Include="Texture\texture1.jpg">
       <Filter>Resource Files\Texture</Filter>
     </Image>
+    <Image Include="Texture\Rusty_Metal_Base_Color.png">
+      <Filter>Resource Files\Texture</Filter>
+    </Image>
+    <Image Include="Texture\Rusty_Metal_Metallic.png">
+      <Filter>Resource Files\Texture</Filter>
+    </Image>
   </ItemGroup>
 </Project>
