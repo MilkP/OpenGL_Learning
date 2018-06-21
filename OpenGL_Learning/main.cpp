@@ -225,7 +225,10 @@ int main() {
 		lightShader.use();
 		lightShader.setVec3("light.position", lightPos);
 		//lightShader.setVec3("light.direction", lightDirection);
+		lightShader.setVec3("light.direction", mainCamera.Front);
 		lightShader.setVec3("viewPos", mainCamera.Position);
+		lightShader.setFloat("light.cutOff", glm::cos(glm::radians(12.5f)));
+		lightShader.setFloat("light.outerCutOff", glm::cos(glm::radians(17.5f)));
 
 		lightShader.setFloat("light.constant", 1.0f);
 		lightShader.setFloat("light.linear", 0.09f);
