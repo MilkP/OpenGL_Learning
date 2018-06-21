@@ -44,6 +44,7 @@ float lastFrame = 0.0f;
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 glm::vec3 objectColor(1.0f, 0.5f, 0.31f);
 glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
+glm::vec3 lightDirection(-0.2f, -1.0f, -0.3f);
 
 //================================Main==========================================
 int main() {
@@ -144,6 +145,18 @@ int main() {
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 	};
 
+	glm::vec3 cubePositions[] = {
+		glm::vec3(0.0f,  0.0f,  0.0f),
+		glm::vec3(2.0f,  5.0f, -15.0f),
+		glm::vec3(-1.5f, -2.2f, -2.5f),
+		glm::vec3(-3.8f, -2.0f, -12.3f),
+		glm::vec3(2.4f, -0.4f, -3.5f),
+		glm::vec3(-1.7f,  3.0f, -7.5f),
+		glm::vec3(1.3f, -2.0f, -2.5f),
+		glm::vec3(1.5f,  2.0f, -2.5f),
+		glm::vec3(1.5f,  0.2f, -1.5f),
+		glm::vec3(-1.3f,  1.0f, -1.5f)
+	};
 	//Set Vertex Buffer Objects and Vertex Array Object
 	unsigned int VBO, cubeVAO, lightVAO;
 
@@ -203,14 +216,15 @@ int main() {
 		view = mainCamera.GetViewMatrix();
 		projection = glm::perspective(glm::radians(mainCamera.Zoom), (float)WIN_WIDTH / (float)WIN_HEIGHT, 0.1f, 100.0f);	
 
-		lightColor.x = sin(glfwGetTime() * 2.0f);
-		lightColor.y = sin(glfwGetTime() * 0.7f);
-		lightColor.z = sin(glfwGetTime() * 1.3f);
+		//lightColor.x = sin(glfwGetTime() * 2.0f);
+		//lightColor.y = sin(glfwGetTime() * 0.7f);
+		//lightColor.z = sin(glfwGetTime() * 1.3f);
 		glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f); // decrease the influence
 		glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // low influence
 
 		lightShader.use();
-		lightShader.setVec3("light.position", lightPos);
+		//lightShader.setVec3("light.position", lightPos);
+		lightShader.setVec3("light.direction", lightDirection);
 		lightShader.setVec3("viewPos", mainCamera.Position);
 
 		lightShader.setVec3("light.ambient", ambientColor);
@@ -224,11 +238,20 @@ int main() {
 
 		lightShader.setMat4("projection", projection);
 		lightShader.setMat4("view", view);
-		lightShader.setMat4("model", model);
-		
+		for (unsigned int i = 0; i < 10; i++)
+		{
+			glm::mat4 model;
+			model = glm::translate(model, cubePositions[i]);
+			float angle = 20.0f * i;
+			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+			lightShader.setMat4("model", model);
 
-		glBindVertexArray(cubeVAO);
-		glDrawArrays(GL_TRIANGLES, 0, 36); 
+			glBindVertexArray(cubeVAO);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}	
+
+		//glBindVertexArray(cubeVAO);
+		//glDrawArrays(GL_TRIANGLES, 0, 36); 
 
 		lampShader.use();
 		lampShader.setMat4("projection", projection);
