@@ -223,9 +223,13 @@ int main() {
 		glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // low influence
 
 		lightShader.use();
-		//lightShader.setVec3("light.position", lightPos);
-		lightShader.setVec3("light.direction", lightDirection);
+		lightShader.setVec3("light.position", lightPos);
+		//lightShader.setVec3("light.direction", lightDirection);
 		lightShader.setVec3("viewPos", mainCamera.Position);
+
+		lightShader.setFloat("light.constant", 1.0f);
+		lightShader.setFloat("light.linear", 0.09f);
+		lightShader.setFloat("light.quadratic", 0.032f);
 
 		lightShader.setVec3("light.ambient", ambientColor);
 		lightShader.setVec3("light.diffuse", diffuseColor);
