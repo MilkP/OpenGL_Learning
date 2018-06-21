@@ -145,19 +145,7 @@ int main() {
 		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
 	};
-	// world space positions of our cubes
-	glm::vec3 cubePositions[] = {
-		glm::vec3(0.0f,  0.0f,  0.0f),
-		glm::vec3(2.0f,  5.0f, -15.0f),
-		glm::vec3(-1.5f, -2.2f, -2.5f),
-		glm::vec3(-3.8f, -2.0f, -12.3f),
-		glm::vec3(2.4f, -0.4f, -3.5f),
-		glm::vec3(-1.7f,  3.0f, -7.5f),
-		glm::vec3(1.3f, -2.0f, -2.5f),
-		glm::vec3(1.5f,  2.0f, -2.5f),
-		glm::vec3(1.5f,  0.2f, -1.5f),
-		glm::vec3(-1.3f,  1.0f, -1.5f)
-	};
+
 	//Set Vertex Buffer Objects and Vertex Array Object
 	unsigned int VBO, cubeVAO, lightVAO;
 
@@ -219,14 +207,29 @@ int main() {
 		view = mainCamera.GetViewMatrix();
 		projection = glm::perspective(glm::radians(mainCamera.Zoom), (float)WIN_WIDTH / (float)WIN_HEIGHT, 0.1f, 100.0f);	
 
+		lightColor.x = sin(glfwGetTime() * 2.0f);
+		lightColor.y = sin(glfwGetTime() * 0.7f);
+		lightColor.z = sin(glfwGetTime() * 1.3f);
+		glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f); // decrease the influence
+		glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f); // low influence
+
 		lightShader.use();
-		lightShader.setVec3("objectColor", objectColor);
-		lightShader.setVec3("lightColor", lightColor);
+		lightShader.setVec3("light.position", lightPos);
+		lightShader.setVec3("viewPos", mainCamera.Position);
+
+		lightShader.setVec3("light.ambient", ambientColor);
+		lightShader.setVec3("light.diffuse", diffuseColor);
+		lightShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+
+		lightShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+		lightShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+		lightShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f); // specular lighting doesn't have full effect on this object's material
+		lightShader.setFloat("material.shininess", 32.0f);
+
 		lightShader.setMat4("projection", projection);
 		lightShader.setMat4("view", view);
 		lightShader.setMat4("model", model);
-		lightShader.setVec3("lightPos", lightPos);
-		lightShader.setVec3("viewPos", mainCamera.Position);
+		
 
 		glBindVertexArray(cubeVAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36); 
@@ -238,6 +241,7 @@ int main() {
 		model = glm::translate(model, lightPos);
 		model = glm::scale(model, glm::vec3(0.2f));
 		lampShader.setMat4("model", model);
+		lampShader.setVec3("lightColor", diffuseColor);
 
 		glBindVertexArray(lightVAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
