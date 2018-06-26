@@ -1,0 +1,26 @@
+newmtl SM_MatPreviewMesh_01SG
+illum 4
+Kd 0.72 0.72 0.72
+Ka 0.20 0.20 0.20
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl SM_MatPreviewMesh_01SG1
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.20 0.20 0.20
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.20 0.20 0.20
+Ns 18.00
+newmtl baked_baked_baked_lambert2SG_pCube1SG_pCube1SG_pCube1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+newmtl baked_baked_baked_lambert2SG_pPlane1SG_pPlane1SG_pPlane1SG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00

@@ -13,6 +13,7 @@
 #include "Mesh.h"
 #include "Shader.h"
 
+
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -156,6 +157,7 @@ private:
 				texture.id = TextureFromFile(str.C_Str(), this->directory);
 			}
 		}
+		return textures;
 	}
 };
 

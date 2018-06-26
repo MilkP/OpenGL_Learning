@@ -19,6 +19,9 @@
     <Filter Include="Resource Files\Texture">
       <UniqueIdentifier>{24adf824-715f-400d-b4f8-dd63e3bda032}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Model">
+      <UniqueIdentifier>{3d91dc9f-1cc4-4e50-a20c-568e3d359b06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -52,9 +55,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
