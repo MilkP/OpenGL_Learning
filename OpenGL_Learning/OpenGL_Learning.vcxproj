@@ -38,8 +38,6 @@
     <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Texture\Rusty_Metal_Base_Color.png" />
-    <Image Include="Texture\Rusty_Metal_Metallic.png" />
     <Image Include="Texture\texture0.jpg" />
     <Image Include="Texture\texture1.jpg" />
   </ItemGroup>

@@ -122,15 +122,19 @@ private:
 		}
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
-		vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-		vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-		vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
-		textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
-		vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
-		textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
-
+        vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+		std::cout << diffuseMaps[0].type << std::endl; //debug
+        // 2. specular maps
+        vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+        textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+		std::cout << specularMaps[0].type << std::endl; //debug
+        // 3. normal maps
+        std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+        textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+        // 4. height maps
+        std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+        textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 		return Mesh(vertices, indices, textures);
 	}
 
@@ -148,15 +152,23 @@ private:
 				{
 					textures.push_back(textures_loaded[j]);
 					skip = true;
+
 					break;
 				}
 			}
 			if (!skip)
-			{
+			{   // if texture hasn't been loaded already, load it
 				Texture texture;
 				texture.id = TextureFromFile(str.C_Str(), this->directory);
+				texture.type = typeName;
+				texture.path = str.C_Str();
+				textures.push_back(texture);
+				textures_loaded.push_back(texture);
+				
 			}
+			//std::cout << textures[i].id << std::endl; //debug
 		}
+		
 		return textures;
 	}
 };
@@ -191,6 +203,7 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		stbi_image_free(data);
+		//std::cout << filename << std::endl; //debug
 	}
 	else
 	{

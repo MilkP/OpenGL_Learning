@@ -20,16 +20,12 @@ void processInput(GLFWwindow *window);
 const unsigned int WIN_WIDTH = 800;
 const unsigned int WIN_HEIGHT = 600;
 
-Texture* ourTexture0;
-Texture* ourTexture1;
-
-const char* baseColorPath = "Texture/Rusty_Metal_Base_Color.png";
-const char* baseSpecularPath = "Texture/Rusty_Metal_Metallic.png";
 const char* modelVSPath = "Shader/colors.vs";
 const char* modelFSPath = "Shader/colors.fs";
 const char* lampVSPath = "Shader/lamp.vs";
 const char* lampFSPath = "Shader/lamp.fs";
 const char* modelPath = "Model/UE4ShaderBall.obj";
+//const char* modelPath = "Model/nanosuit.obj";
 
 float angle;
 
@@ -43,8 +39,8 @@ float lastFrame = 0.0f;
 
 // lighting
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
-glm::vec3 objectColor(1.0f, 0.5f, 0.31f);
-glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
+//glm::vec3 objectColor(1.0f, 0.5f, 0.31f);
+//glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 glm::vec3 lightDirection(-0.2f, -1.0f, -0.3f);
 
 //================================Main==========================================
@@ -84,7 +80,7 @@ int main() {
 
 	//Setup Shader
 	Shader modelShader(modelVSPath, modelFSPath);
-	Shader lampShader(lampVSPath, lampFSPath);
+	//Shader lampShader(lampVSPath, lampFSPath);
 
 	//load model
 	Model ourModel(modelPath);
@@ -115,9 +111,16 @@ int main() {
 		projection = glm::perspective(glm::radians(mainCamera.Zoom), (float)WIN_WIDTH / (float)WIN_HEIGHT, 0.1f, 100.0f);	
 
 		modelShader.use();
-		//modelShader.setVec3("viewPos", mainCamera.Position);
+		modelShader.setVec3("viewPos", mainCamera.Position);
 		modelShader.setMat4("projection", projection);
 		modelShader.setMat4("view", view);
+
+		modelShader.setFloat("material.shininess", 32.0f);
+
+		modelShader.setVec3("dirLight.direction", lightDirection);
+		modelShader.setVec3("dirLight.ambient", 0.5f, 0.5f, 0.5f);
+		modelShader.setVec3("dirLight.diffuse", 1.0f, 1.0f, 1.0f);
+		modelShader.setVec3("dirLight.specular", 1.0f, 1.0f, 1.0f);
 
 		glm::mat4 model;
 		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
