@@ -114,12 +114,12 @@ int main() {
 		modelShader.setVec3("viewPos", mainCamera.Position);
 		modelShader.setMat4("projection", projection);
 		modelShader.setMat4("view", view);
-
+		
 		modelShader.setFloat("material.shininess", 32.0f);
 
 		modelShader.setVec3("dirLight.direction", lightDirection);
-		modelShader.setVec3("dirLight.ambient", 0.5f, 0.5f, 0.5f);
-		modelShader.setVec3("dirLight.diffuse", 1.0f, 1.0f, 1.0f);
+		modelShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+		modelShader.setVec3("dirLight.diffuse", 0.5f, 0.5f, 0.5f);
 		modelShader.setVec3("dirLight.specular", 1.0f, 1.0f, 1.0f);
 
 		glm::mat4 model;

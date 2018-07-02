@@ -124,17 +124,19 @@ private:
 
         vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-		std::cout << diffuseMaps[0].type << std::endl; //debug
+		//std::cout << diffuseMaps[0].type << std::endl; //debug
         // 2. specular maps
         vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
         textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
-		std::cout << specularMaps[0].type << std::endl; //debug
+		//std::cout << specularMaps[0].type << std::endl; //debug
         // 3. normal maps
         std::vector<Texture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
         textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
         // 4. height maps
         std::vector<Texture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
         textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+		//std::cout << textures[0].path << std::endl; //debug
+		//std::cout << textures[1].path << std::endl; //debug
 		return Mesh(vertices, indices, textures);
 	}
 
@@ -166,7 +168,7 @@ private:
 				textures_loaded.push_back(texture);
 				
 			}
-			//std::cout << textures[i].id << std::endl; //debug
+			//std::cout << textures[0].path << std::endl; //debug
 		}
 		
 		return textures;

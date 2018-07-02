@@ -52,31 +52,51 @@ public:
 		unsigned int specularNr = 1;
 		unsigned int normalNr = 1;
 		unsigned int heightNr = 1;
-		for (unsigned int i = 0; i < textures.size(); ++i)
+		
+		
+		/*
+		for (unsigned int i = 0; i < textures.size(); i++)
 		{
-			glActiveTexture(GL_TEXTURE0 + i);
+			//std::cout << textures[0].path << std::endl; //debug
+			//std::cout << textures[1].path << std::endl; //debug
 			string number;
 			string name = textures[i].type;
+			glActiveTexture(GL_TEXTURE0 + i);
+			//glEnable(GL_TEXTURE_2D);
+
 			if (name == "texture_diffuse")
+			{
 				number = std::to_string(diffuseNr++);
+			}				
 			else if (name == "texture_specular")
+			{
 				number = std::to_string(specularNr++);
+			}			
 			else if (name == "texture_normal")
 				number = std::to_string(normalNr++);
 			else if (name == "texture_height")
 				number = std::to_string(heightNr++);
-
+	
 			glUniform1i(glGetUniformLocation(shader.ID, (name + number).c_str()), i);
 			glBindTexture(GL_TEXTURE_2D, textures[i].id);
-
-			//std::cout << textures.size() << std::endl; //debug
+			//std::cout << name << std::endl; //debug
 		}
+		*/
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, 1);
+		glUniform1i(glGetUniformLocation(shader.ID, "texture_diffuse1"), 0);
+
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, 2);
+		glUniform1i(glGetUniformLocation(shader.ID, "texture_specular1"), 1);
+		
 
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
-		glActiveTexture(GL_TEXTURE0);
+		//glActiveTexture(GL_TEXTURE0);
+		glDisable(GL_TEXTURE_2D);
 	}
 private:
 	unsigned int VBO, EBO;
