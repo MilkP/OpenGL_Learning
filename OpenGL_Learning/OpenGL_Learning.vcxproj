@@ -38,8 +38,8 @@
     <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Texture\texture0.jpg" />
-    <Image Include="Texture\texture1.jpg" />
+    <Image Include="Model\Rusty_Metal_Base_Color.png" />
+    <Image Include="Model\Rusty_Metal_Metallic.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

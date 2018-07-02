@@ -69,10 +69,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Texture\texture0.jpg">
+    <Image Include="Model\Rusty_Metal_Base_Color.png">
       <Filter>Resource Files\Texture</Filter>
     </Image>
-    <Image Include="Texture\texture1.jpg">
+    <Image Include="Model\Rusty_Metal_Metallic.png">
       <Filter>Resource Files\Texture</Filter>
     </Image>
   </ItemGroup>
