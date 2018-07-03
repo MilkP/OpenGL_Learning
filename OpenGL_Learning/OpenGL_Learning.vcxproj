@@ -30,10 +30,8 @@
     <None Include="Shader\colors.vs">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </None>
-    <None Include="Shader\lamp.fs" />
-    <None Include="Shader\lamp.vs" />
-    <None Include="Shader\shader.fs" />
-    <None Include="Shader\shader.vs" />
+    <None Include="Shader\depth_test.fs" />
+    <None Include="Shader\depth_test.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />

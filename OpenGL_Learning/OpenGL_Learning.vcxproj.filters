@@ -35,22 +35,16 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shader\shader.fs">
-      <Filter>Resource Files\Shader</Filter>
-    </None>
-    <None Include="Shader\shader.vs">
-      <Filter>Resource Files\Shader</Filter>
-    </None>
     <None Include="Shader\colors.fs">
       <Filter>Resource Files\Shader</Filter>
     </None>
     <None Include="Shader\colors.vs">
       <Filter>Resource Files\Shader</Filter>
     </None>
-    <None Include="Shader\lamp.fs">
+    <None Include="Shader\depth_test.vs">
       <Filter>Resource Files\Shader</Filter>
     </None>
-    <None Include="Shader\lamp.vs">
+    <None Include="Shader\depth_test.fs">
       <Filter>Resource Files\Shader</Filter>
     </None>
   </ItemGroup>

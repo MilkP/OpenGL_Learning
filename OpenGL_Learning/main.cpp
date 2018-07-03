@@ -17,13 +17,13 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
 
-const unsigned int WIN_WIDTH = 800;
-const unsigned int WIN_HEIGHT = 600;
+const unsigned int WIN_WIDTH = 1000;
+const unsigned int WIN_HEIGHT = 750;
 
 const char* modelVSPath = "Shader/colors.vs";
 const char* modelFSPath = "Shader/colors.fs";
-const char* lampVSPath = "Shader/lamp.vs";
-const char* lampFSPath = "Shader/lamp.fs";
+const char* depth_testVSPath = "Shader/depth_test.vs";
+const char* depth_testFSPath = "Shader/depth_test.fs";
 const char* modelPath = "Model/UE4ShaderBall.obj";
 //const char* modelPath = "Model/nanosuit.obj";
 
@@ -81,7 +81,7 @@ int main() {
 
 	//Setup Shader
 	Shader modelShader(modelVSPath, modelFSPath);
-	//Shader lampShader(lampVSPath, lampFSPath);
+	Shader depthTestShader(depth_testVSPath, depth_testFSPath);
 
 	//load model
 	Model ourModel(modelPath);
@@ -94,7 +94,7 @@ int main() {
 	//============================================================================
 	while (!glfwWindowShouldClose(window)) {
 		glViewport(0, 0, WIN_WIDTH, WIN_HEIGHT);
-		model = glm::mat4();
+		
 		//frame-time set
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
@@ -109,27 +109,26 @@ int main() {
 
 
 		// camera/view transformation
+		model = glm::mat4();
 		view = mainCamera.GetViewMatrix();
 		projection = glm::perspective(glm::radians(mainCamera.Zoom), (float)WIN_WIDTH / (float)WIN_HEIGHT, 0.1f, 100.0f);	
 
-		modelShader.use();
-		modelShader.setVec3("viewPos", mainCamera.Position);
-		modelShader.setMat4("projection", projection);
-		modelShader.setMat4("view", view);
+		depthTestShader.use();
+		depthTestShader.setVec3("viewPos", mainCamera.Position);
+		depthTestShader.setMat4("projection", projection);
+		depthTestShader.setMat4("view", view);
 		
-		modelShader.setFloat("material.shininess", 32.0f);
-
-		modelShader.setVec3("dirLight.direction", lightDirection);
-		modelShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
-		modelShader.setVec3("dirLight.diffuse", 0.5f, 0.5f, 0.5f);
-		modelShader.setVec3("dirLight.specular", 1.0f, 1.0f, 1.0f);
-
-		glm::mat4 model;
 		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
 		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
-		modelShader.setMat4("model", model);
-		ourModel.Draw(modelShader);
+		depthTestShader.setMat4("model", model);
 
+		ourModel.Draw(depthTestShader);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(0.0f, -1.75f, -3.0f));
+		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		depthTestShader.setMat4("model", model);
+		ourModel.Draw(depthTestShader);
         //===================  second viewport  ==========================
 		glEnable(GL_SCISSOR_TEST);//enable scissor test for second viewport
 		glViewport(WIN_WIDTH - 400, WIN_HEIGHT - 300, 400, 300);
@@ -137,27 +136,32 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//clear area of scissor test
 		//render vireport
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		
+		model = glm::mat4();
 
+		modelShader.use();
+		modelShader.setVec3("viewPos", mainCamera.Position);
+		modelShader.setMat4("projection", projection);
+		modelShader.setMat4("view", view);
+
+		modelShader.setFloat("material.shininess", 32.0f);
+
+		modelShader.setVec3("dirLight.direction", lightDirection);
+		modelShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+		modelShader.setVec3("dirLight.diffuse", 0.5f, 0.5f, 0.5f);
+		modelShader.setVec3("dirLight.specular", 1.0f, 1.0f, 1.0f);
+
+		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f));
+		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		modelShader.setMat4("model", model);
+		ourModel.Draw(modelShader);
+
+		model = glm::mat4();
+		model = glm::translate(model, glm::vec3(0.0f, -1.75f, -3.0f));
+		model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+		modelShader.setMat4("model", model);
 		ourModel.Draw(modelShader);
 		glDisable(GL_SCISSOR_TEST);//disable scissor test
-		/*
-		lampShader.use();
-		lampShader.setMat4("projection", projection);
-		lampShader.setMat4("view", view);
-		for (unsigned int i = 0; i < 4; i++)
-		{
-			model = glm::mat4();
-			model = glm::translate(model, pointLightPositions[i]);
-			model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
-			lampShader.setMat4("model", model);
-			lampShader.setVec3("lightColor", diffuseColor);
-			glDrawArrays(GL_TRIANGLES, 0, 36);
-		}	
 
-		glBindVertexArray(lightVAO);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-		*/
 		//swap buffer
 		glfwSwapBuffers(window);
 		glfwPollEvents();
@@ -170,7 +174,7 @@ int main() {
 
 //Make sure viewport match the window
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-	glViewport(width - 400, height - 300, 400, 300);
+	glViewport(width - 400, 0, 400, 300);
 }
 
 void mouse_callback(GLFWwindow * window, double xpos, double ypos)
