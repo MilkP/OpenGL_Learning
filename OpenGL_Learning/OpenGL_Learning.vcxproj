@@ -30,6 +30,8 @@
     <None Include="Shader\colors.vs">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </None>
+    <None Include="Shader\cubemap.fs" />
+    <None Include="Shader\cubemap.vs" />
     <None Include="Shader\depth_test.fs" />
     <None Include="Shader\depth_test.vs" />
   </ItemGroup>
@@ -38,14 +40,6 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="stb_image.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Model\Rusty_Metal_Base_Color.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-    </Image>
-    <Image Include="Model\Rusty_Metal_Metallic.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-    </Image>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

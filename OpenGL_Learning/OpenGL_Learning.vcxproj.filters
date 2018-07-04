@@ -47,6 +47,12 @@
     <None Include="Shader\depth_test.fs">
       <Filter>Resource Files\Shader</Filter>
     </None>
+    <None Include="Shader\cubemap.fs">
+      <Filter>Resource Files\Shader</Filter>
+    </None>
+    <None Include="Shader\cubemap.vs">
+      <Filter>Resource Files\Shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stb_image.h">
@@ -61,13 +67,5 @@
     <ClInclude Include="Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Model\Rusty_Metal_Base_Color.png">
-      <Filter>Resource Files\Texture</Filter>
-    </Image>
-    <Image Include="Model\Rusty_Metal_Metallic.png">
-      <Filter>Resource Files\Texture</Filter>
-    </Image>
   </ItemGroup>
 </Project>
